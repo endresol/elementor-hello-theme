@@ -6,6 +6,7 @@
 module.exports = function( grunt ) {
 
 	require( 'matchdep' ).filterDev( 'grunt-*' ).forEach( grunt.loadNpmTasks );
+	grunt.loadNpmTasks('grunt-contrib-compress');
 
 	// Project configuration.
 	grunt.initConfig( {
@@ -106,6 +107,18 @@ module.exports = function( grunt ) {
 				],
 				expand: true
 			},
+		},
+
+		compress: {
+			main: {
+				options: {
+					archive: 'hello-theme.zip'
+				},
+				files: [
+					{expand: true,src: ['*', '!*.zip', '!*.json', '!.gitignore', '!Gruntfile.js'], dest: '/', filter: 'isFile'},
+					{src: ['template-parts/*'], dest: 'template-parts/', filter: 'isFile'}, // includes files in path
+				]
+			}
 		},
 
 		wp_readme_to_markdown: {
